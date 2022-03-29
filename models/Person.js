@@ -4,6 +4,9 @@ const mongoose = require('mongoose')
 const url = process.env.MONGODB_URI
 let uniqueValidator = require('mongoose-unique-validator')
 
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
+
 mongoose
     .connect(url, {
         useNewUrlParser: true,
@@ -40,7 +43,5 @@ personSchema.set('toJSON', {
 })
 
 personSchema.plugin(uniqueValidator)
-mongoose.set('useCreateIndex', true)
-mongoose.set('useFindAndModify', false)
 
 module.exports = mongoose.model('Person', personSchema)
